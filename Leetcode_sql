@@ -1,0 +1,36 @@
+Customer Who Visited but Did Not Make Any Transactions
+-------------------------------------------------------
+# Write your MySQL query statement below
+select 
+    v.customer_id,
+    count(v.visit_id) as count_no_trans
+from 
+    visits v
+left join
+    Transactions tr
+on
+    v.visit_id=tr.visit_id
+where tr.transaction_id is null
+group by v.customer_id;
+============================================================
+Managers with at Least 5 Direct Reports8(self join)
+-----------------------------------
+Select m.name
+from employee as e
+inner join employee as m
+on e.managerId=m.id
+group by e.managerId 
+having count(e.id)>=5;
+==============================================================
+Confirmation Rate
+------------------
+Select 
+    s.user_id,
+    round(avg(if(c.action="confirmed",1,0)),2) as confirmation_rate
+from
+    signups s
+left join
+    confirmations c
+on
+    s.user_id=c.user_id
+group by user_id;
