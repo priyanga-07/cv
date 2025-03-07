@@ -1,0 +1,41 @@
+Not Boring Movies
+--------------------
+select
+    id,
+    movie,
+    description,
+    rating
+from
+    cinema
+where  id%2<>0 and description not in ("boring")
+order by rating desc;
+==========================================================
+Average Selling Price
+------------------------
+select
+    p.product_id,
+    IFNULL(ROUND(SUM(p.price * u.units) / SUM(u.units), 2), 0) AS average_price
+from
+    prices p
+join
+    unitssold u
+on
+    p.product_id=u.product_id
+and 
+    u.purchase_date BETWEEN p.start_date AND p.end_date
+GROUP BY
+    p.product_id;
+=================================================================
+Project Employees I
+------------------------
+select
+    p.project_id,
+    round(avg(e.experience_years),2) as average_years 
+from
+    project p
+left join
+    employee e
+on
+    p.employee_id=e.employee_id
+group by 
+    project_id;
